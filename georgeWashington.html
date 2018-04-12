@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+ 	<!-- Set the title for the page -->
+	<meta charset="utf-8">
+	<title>George Washington</title>
+	<script src="js/shoppingCart.js"></script>
+	<script src="js/cookies.js"></script>
+	<script>
+		function createCookie(p){
+			if (getCookie(p)){
+				setCookie(p, parseInt(getCookie(p))+1);
+				//alert("One has been added to the cookie.");
+				} else {
+				setCookie(p, 1);
+				//alert("Cookie created.");
+				}
+				//alert(document.cookie);
+			}
+	</script>
+    </head>
+
+    <body>
+		<h1>The Great Leader Emporium!</h1>
+		<table border="1">
+			<script>
+				var contentTableGW = "";
+				var productIDAndPriceGW = productShortName[1] + "~" + productPrice[1];
+				
+				contentTableGW += "<td><img height='550' width='650' src='" + productThumbNailURL[1] + "'></img>";
+				contentTableGW += "<p id='leaderName'>" + productLongName[1] + "</p>";
+				contentTableGW += "<p>" + productDetailedDescription[1] + "</p>";
+				contentTableGW += "<p>$" + productPrice[1] + "</p>";
+				contentTableGW += "<p><a href='index.html'>Back to Main</a></p>";
+				contentTableGW += "<p><a href='viewCart.html'>View Cart</a></p>";
+				contentTableGW += "<p><a href='checkOut.html'>Go to Checkout</a></p>";
+				contentTableGW += "<p><button onclick='createCookie(\"" + productIDAndPriceGW + "\")'>Add To Cart</button></p>";
+				document.write(contentTableGW);
+			</script>
+		</table>
+    </body>
+
+</html>

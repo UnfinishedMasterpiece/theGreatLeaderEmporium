@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+	<!-- Set the title for the page -->
+	<meta charset="utf-8">
+	<title>View Cart - The Great Leader Emporium</title>
+	<script src="js/shoppingCart.js"></script>
+	<script src="js/cookies.js"></script>
+	<script>
+		function cartUpdate(p){
+			//alert(p);
+			//var updatedCart = document.getElementsByTagName("input");
+			var cookieTest = document.getElementById(p);
+			//alert(cookieTest);
+			var dayte = new Date();
+				dayte.setFullYear(dayte.getFullYear()-1);
+				//for(var i = 0; i < updatedCart.length; i++){
+					if(cookieTest.value == 0){
+					setCookie(cookieTest.id, cookieTest.value, dayte);
+					} else {
+					setCookie(cookieTest.id, cookieTest.value);
+					}
+				//}
+			location.reload();
+		}
+	</script>
+    </head>
+
+    <body>
+		<h1>The Great Leader Emporium!</h1>
+		<a href='index.html'>Back to Main Page</a>
+		<br>
+		<a href='checkOut.html' id='checkoutLink'>To Checkout</a>
+		<script>
+			var cartTable = "<table border='1'>";
+		
+				for(var i = 0; i < productShortName.length; i++){
+					var productIDAndPriceCart = productShortName[i] + "~" + productPrice[i];
+					if(getCookie(productIDAndPriceCart)){
+						var cartValue = getCookie(productIDAndPriceCart);
+						cartTable += "<tr><td><img height='250px' width='250px' src='" + productThumbNailURL[i] + "'></img></td>";
+						cartTable += "<td><p>" + productShortName[i] + "</p>";
+						cartTable += "<p>Price: $" + productPrice[i] + "</p>";
+						cartTable += "<p>Quantity: <input id='" + productIDAndPriceCart + "' value='" + cartValue + "'></input></p>";
+						cartTable += "<button onclick='cartUpdate(\"" + productIDAndPriceCart + "\")'>Update Cart</button></td></tr>";
+
+					}
+				}
+				cartTable += "</table>";
+			document.write(cartTable);
+		</script>
+    </body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+	<title>Checkout - The Great Leader Emporium</title>
+	<script src="js/shoppingCart.js"></script>
+	<script src="js/cookies.js"></script>
+	<script>
+		function processAndClearOrder(){
+			alert("Thank you for placing your order with us!\n\nYour total comes out to $" + fixedTotal + ".\n\nYour country's people will be overjoyed with the great leaders you have bought here today.\n\nBe sure to tell other leaders about your great experience shopping at The Great Leader Emporium!");
+			var dayte = new Date();
+			dayte.setFullYear(dayte.getFullYear()-1);
+			for(var i = 0; i < productShortName.length; i++){
+			var productIDAndPriceCheckOut = productShortName[i] + "~" + productPrice[i];
+				if(getCookie(productIDAndPriceCheckOut)){
+					setCookie(productIDAndPriceCheckOut, "0", dayte);
+				}
+			}
+		location.reload();
+		redirectPage();
+		}
+		function redirectPage(){ //works only in Firefox. Redirects to Main Page.
+			window.location.assign("index.html");
+		}
+	</script>
+    </head>
+
+    <body>
+	<h1>The Great Leader Emporium!</h1>
+	<a href='index.html'>Back to Main Page</a>
+	<script>
+		var checkOutTable = "<table border='1'>";
+		checkOutTable += "<tr><th colspan='2'>Shopping Cart</th></tr>";
+		var extendedPrice = 0;
+		var subTotal = 0;
+		var shipping = 0;
+		var total = 0;
+			for(var i = 0; i < productShortName.length; i++){
+				var productIDAndPriceCheckOut = productShortName[i] + "~" + productPrice[i];
+				extendedPrice = productPrice[i] * getCookie(productIDAndPriceCheckOut);
+				var fixedExtendPrice = extendedPrice.toFixed(2);
+				if(getCookie(productIDAndPriceCheckOut)){
+					var cartValue = getCookie(productIDAndPriceCheckOut);
+					checkOutTable += "<tr><td><a href='" + productLargeImgURL[i] + "'><img height='250px' width='250px' src='" + productThumbNailURL[i] + "'></img></a></td>";
+					checkOutTable += "<td><p><strong>" + productLongName[i] + "</strong></p>";
+					checkOutTable += "<p>" + productShortDescription[i] + "</p>";
+					checkOutTable += "<p>Price: $" + productPrice[i] + "</p>";
+					checkOutTable += "<p>Quantity: " + cartValue + "</p>";
+					checkOutTable += "<p>Extended Price (Quantity * Price): $" + fixedExtendPrice + "</p></tr>";
+					subTotal += extendedPrice;
+				}
+			}
+			fixedSubTotal = subTotal.toFixed(2);
+			checkOutTable += "<tr><th colspan='2'>Purchase Summary</th></tr>";
+			checkOutTable += "<tr><td><strong>Sub Total:</strong></td>";
+			checkOutTable += "<td>$" + fixedSubTotal + "</td></tr>";
+			
+			if(subTotal > 0 && subTotal <= 25){
+				shipping = 2.50;
+			} else if(subTotal > 25.01 && subTotal <= 75.00){
+				shipping = 5.00;
+			} else if(subTotal > 75.01 && subTotal <= 150.00){
+				shipping = 7.50;
+			} else if(subTotal > 150.01){
+				shipping = 10.00;
+			}
+			//alert(shipping);
+			var fixedShipping = shipping.toFixed(2);
+			checkOutTable += "<tr><td><strong>Shipping Cost:</strong></td>";
+			checkOutTable += "<td>$" + fixedShipping + "</td></tr>"
+			total = subTotal + shipping;
+			var fixedTotal = total.toFixed(2);
+			checkOutTable += "<tr><td><strong>Grand Total:</strong></td>";
+			checkOutTable += "<td>$" + fixedTotal + "</td></tr>";
+			checkOutTable += "<tr><td id='process' colspan='2'><button onclick='processAndClearOrder()'>Process Order</button></td></tr>"
+			checkOutTable += "</table>";
+		document.write(checkOutTable);
+	</script>
+    </body>
+
+</html>

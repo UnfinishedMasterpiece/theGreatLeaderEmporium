@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>The Great Leader Emporium - Great leaders, for even greater prices!</title>
+    <script src="js/shoppingCart.js"></script>
+	<script src="js/cookies.js"></script>
+	<script>
+	//alert(document.cookie);
+	function createCookie(p){
+		if (getCookie(p)){
+			setCookie(p, parseInt(getCookie(p))+1);
+			//alert("One has been added to the cookie.");
+			} else {
+			setCookie(p, 1);
+			//alert("Cookie created.");
+			}
+			//alert(document.cookie);
+		}
+	</script>
+	</head>
+
+    <body>
+	<h1>The Great Leader Emporium!</h1>
+	<p>
+	Is your country falling into hard socio-economic times? 
+	Do you need someone to be the very best and make your country great again?
+	Then you've come to the right place!
+	<br>
+	<br>
+	The Great Leader Emporium has spent over 100 years providing Champions of Leadership 
+	to fledgling countries.
+	<br>
+	<br>
+	We ship all across the globe, just like Santa Claus!
+	<br>
+	<br>
+	<strong>Click on the images below for more info on these great leaders!</strong>
+	<br>
+	<br>
+	Order your Great Leader today!
+	</p>
+	<table border="1">
+	<script>
+		var tableStart = "";
+
+		
+			for(var i = 0; i < productShortName.length; i++){
+				//alert(tableStart);
+				var productIDAndPrice = productShortName[i] + "~" + productPrice[i];
+				tableStart += "<tr><td>" + productLongName[i] + "</td>";
+				tableStart += "<td><a href='" + productLargeImgURL[i] + "'><img height='175px' width='200px' src='" + productThumbNailURL[i] + "'></img></a></td>";
+				tableStart += "<td>" + productShortDescription[i] + "</td>";
+				tableStart += "<td>$" + productPrice[i] + "</td>";
+				tableStart += "<td><button onclick='createCookie(\"" + productIDAndPrice + "\")'>Add To Cart</button></td>";
+				tableStart += "<td><a href='viewCart.html'>View Cart</a></td>";
+				tableStart += "<td><a href='checkOut.html'>Go to Checkout</a></td></tr>";
+			}
+		document.write(tableStart);
+	</script>
+	</table>
+    </body>
+
+</html>
